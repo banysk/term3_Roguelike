@@ -98,66 +98,28 @@ void MapGenerator::place_princess() {
     }
 }
 
-void MapGenerator::place_zombies(int amount) {
+void MapGenerator::place_object(int amount, char ch, int k1, int k2) {
     std::random_device rd;
-    for (int zombies = 0; zombies < amount; zombies++) {
+    for (int i = 0; i < amount; i++) {
         int rand_x = 0;
         int rand_y = 0;
         while (map[rand_y][rand_x] != 'x') {
             rand_x = rd() % dimensions;
-            rand_y = rd() % (4 * dimensions / 5) + dimensions / 5;
+            rand_y = rd() % (k1 * dimensions / k2) + ((k2 - k1) * dimensions / k2);
         }
-        map[rand_y][rand_x] = 'Z';
+        map[rand_y][rand_x] = ch;
     }
 }
 
-void MapGenerator::place_dragons(int amount) {
-    std::random_device rd;
-    for (int dragons = 0; dragons < amount; dragons++) {
-        int rand_x = 0;
-        int rand_y = 0;
-        while (map[rand_y][rand_x] != 'x') {
-            rand_x = rd() % dimensions;
-            rand_y = rd() % (3 * dimensions / 5) + (2 * dimensions / 5);
-        }
-        map[rand_y][rand_x] = 'D';
-    }
-}
-
-void MapGenerator::place_aids(int amount) {
-    std::random_device rd;
-    for (int aids = 0; aids < amount; aids++) {
-        int rand_x = 0;
-        int rand_y = 0;
-        while (map[rand_y][rand_x] != 'x') {
-            rand_x = rd() % dimensions;
-            rand_y = rd() % dimensions;
-        }
-        map[rand_y][rand_x] = 'A';
-    }
-}
-
-void MapGenerator::place_mana(int amount) {
-    std::random_device rd;
-    for (int mana = 0; mana < amount; mana++) {
-        int rand_x = 0;
-        int rand_y = 0;
-        while (map[rand_y][rand_x] != 'x') {
-            rand_x = rd() % dimensions;
-            rand_y = rd() % dimensions;
-        }
-        map[rand_y][rand_x] = 'M';
-    }
-}
 void MapGenerator::generate_map(std::map<std::string, std::string>& args) {
     init();
     generate_location(std::stoi(args["SEED"]));
     place_knight();
     place_princess();
-    place_zombies(std::stoi(args["ZOMBIES"]));
-    place_dragons(std::stoi(args["DRAGONS"]));
-    place_aids(std::stoi(args["AIDS"]));
-    place_mana(std::stoi(args["MANA"]));
+    place_object(std::stoi(args["ZOMBIES"]), 'Z', 4, 5);
+    place_object(std::stoi(args["DRAGONS"]), 'D', 3, 5);
+    place_object(std::stoi(args["AIDS"]), 'A', 1, 1);
+    place_object(std::stoi(args["MANA"]), 'M', 1, 1);
 }
 
 void MapGenerator::save_pattern(std::string path) {

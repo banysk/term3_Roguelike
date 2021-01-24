@@ -21,6 +21,7 @@ public:
     */
     void draw_pattern();
 
+    void place_object(int amount, char ch, int k1, int k2);
 private:
     /*
     since the map consists of tunnel and wall cells, we could describe it as zeros and ones in a two-dimensional array
@@ -54,20 +55,4 @@ private:
     place princess to lower right corner
     */
     void place_princess();
-    /*
-    place zombies
-    */
-    void place_zombies(int amount);
-    /*
-    place dragons
-    */
-    void place_dragons(int amount);
-    /*
-    place aids
-    */
-    void place_aids(int amount);
-    /*
-    place mana
-    */
-    void place_mana(int amount);
 };

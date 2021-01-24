@@ -75,8 +75,6 @@ public:
     void cast_fireball(GameObject* dragon);
     void move_fireballs();
 
-    void collide_fireball(GameObject*);
-
 private:
     GameStatus game_status;
     bool fog;
